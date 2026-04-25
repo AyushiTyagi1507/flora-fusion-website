@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flora Fusion – Premium Plant Store</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Google Fonts: Playfair Display + DM Sans -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     BODY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+<body>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════════════════ -->
+    <nav id="mainNav">
+        <div class="container">
+            <div class="navbar-inner">
+                <!-- Logo -->
+                <a class="nav-logo" href="#hero">
+                    <div class="logo-leaf"></div>
+                    Flora <span>Fusion</span>
+                </a>
+
+                <!-- Desktop nav links -->
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#products">Shop</a></li>
+                    <li><a href="#care">Plant Care</a></li>
+                    <li><a href="#order">Order</a></li>
+                </ul>
+
+                <!-- Actions -->
+                <div class="nav-actions">
+                    <!-- Search bar -->
+                    <div class="nav-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search plants…" oninput="handleSearch()" />
+                    </div>
+                    <!-- Cart button -->
+                    <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
+                        <i class="bi bi-bag"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    <!-- Mobile hamburger -->
+                    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#hero" onclick="closeMobileMenu()">Home</a>
+                <a href="#categories" onclick="closeMobileMenu()">Categories</a>
+                <a href="#products" onclick="closeMobileMenu()">Shop</a>
+                <a href="#care" onclick="closeMobileMenu()">Plant Care</a>
+                <a href="#order" onclick="closeMobileMenu()">Order</a>
+                <!-- Mobile search -->
+                <div style="padding: 12px 20px;">
+                    <input type="text" id="mobileSearch" class="form-control-ff" placeholder="Search plants…"
+                        oninput="handleMobileSearch()" style="background:#fff;" />
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════════════════════════ -->
+    <section id="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left: Content -->
+                <div class="col-lg-6 hero-content">
+                    <div class="hero-badge">
+                        <i class="bi bi-award-fill"></i> India's #1 Plant E-Commerce Platform
+                    </div>
+                    <h1 class="hero-title">
+                        Bring Nature <br /><span class="highlight">Into Your</span><br /> Living Space
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover over 200 handpicked plants for every space, every lifestyle, and every budget.
+                        Delivered fresh, planted with love.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="btn-primary-ff"
+                            onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+                            <i class="bi bi-bag2"></i> Shop Now
+                        </button>
+                        <button class="btn-outline-ff"
+                            onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+                            Explore Categories
+                        </button>
+                    </div>
+                    <!-- <div class="hero-stats">
+          <div class="hero-stat"><div class="num">200+</div><div class="lbl">Plant Varieties</div></div>
+          <div class="hero-stat"><div class="num">15K+</div><div class="lbl">Happy Customers</div></div>
+          <div class="hero-stat"><div class="num">4.9★</div><div class="lbl">Average Rating</div></div>
+        </div> -->
+                </div>
+                <!-- Right: Decorative visual -->
+                <div class="col-lg-6">
+                    <div class="hero-visual">
+                        <div class="hero-blob"></div>
+                        <div class="hero-plant-emoji">🌿</div>
+                        <div class="hero-tag t1">🌱 Easy to Grow</div>
+                        <div class="hero-tag t2">🚚 Free Delivery ₹699+</div>
+                        <div class="hero-tag t3">♻️ Eco Packaged</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     CATEGORIES SECTION
+══════════════════════════════════════════════════════════════ -->
+    <section id="categories" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <div class="section-label">What We Offer</div>
+                <h2 class="section-title">Shop by Category</h2>
+                <p class="section-sub mx-auto">From sun-loving outdoor giants to quiet indoor companions — find your
+                    perfect plant.</p>
+            </div>
+            <div class="category-grid reveal">
+                <!-- Indoor -->
+                <div class="cat-card indoor" onclick="filterByCategory('indoor')">
+                    <div class="cat-card-bg">🪴</div>
+                    <div class="cat-card-overlay"></div>
+                    <div class="cat-card-body">
+                        <h3>Indoor Plants</h3>
+                        <p>Purify air, calm spaces</p>
+                        <div class="cat-count">48 Plants →</div>
+                    </div>
+                </div>
+                <!-- Outdoor -->
+                <div class="cat-card outdoor" onclick="filterByCategory('outdoor')">
+                    <div class="cat-card-bg">🌳</div>
+                    <div class="cat-card-overlay"></div>
+                    <div class="cat-card-body">
+                        <h3>Outdoor Plants</h3>
+                        <p>Gardens & balconies</p>
+                        <div class="cat-count">62 Plants →</div>
+                    </div>
+                </div>
+                <!-- Decorative -->
+                <div class="cat-card deco" onclick="filterByCategory('decorative')">
+                    <div class="cat-card-bg">🌸</div>
+                    <div class="cat-card-overlay"></div>
+                    <div class="cat-card-body">
+                        <h3>Decorative Plants</h3>
+                        <p>Blooms & rare beauties</p>
+                        <div class="cat-count">35 Plants →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     PRODUCTS SECTION
+══════════════════════════════════════════════════════════════ -->
+    <section id="products" class="section-pad">
+        <div class="container">
+            <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-3 reveal">
+                <div>
+                    <div class="section-label">Fresh Stock</div>
+                    <h2 class="section-title mb-0">Featured Plants</h2>
+                </div>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="filter-bar reveal">
+                <button class="filter-btn active" onclick="filterProducts('all', this)">All Plants</button>
+                <button class="filter-btn" onclick="filterProducts('indoor', this)">🪴 Indoor</button>
+                <button class="filter-btn" onclick="filterProducts('outdoor', this)">🌳 Outdoor</button>
+                <button class="filter-btn" onclick="filterProducts('decorative', this)">🌸 Decorative</button>
+                <button class="filter-btn" onclick="filterProducts('succulent', this)">🌵 Succulents</button>
+            </div>
+
+            <!-- No results msg -->
+            <div id="noResults" style="display:none; text-align:center; padding: 48px 0; color: var(--text-light);">
+                <div style="font-size:3rem; margin-bottom:12px;">🌿</div>
+                <p>No plants found. Try a different search or filter.</p>
+            </div>
+
+            <!-- Product grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- JS-rendered -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     WHY CHOOSE US
+══════════════════════════════════════════════════════════════ -->
+    <section id="why" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <div class="section-label" style="color:var(--green-pale);">Our Promise</div>
+                <h2 class="section-title" style="color:#fff;">Why Plant Parents Love Us</h2>
+            </div>
+            <div class="row g-0 reveal">
+                <div class="col-md-3">
+                    <div class="why-card">
+                        <div class="why-icon">🌱</div>
+                        <h4>Expert Curation</h4>
+                        <p>Every plant is handpicked by certified horticulturists for quality and health.</p>
+                    </div>
+                </div>
+                <div class="d-none d-md-block col-md-auto">
+                    <div class="why-divider"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="why-card">
+                        <div class="why-icon">📦</div>
+                        <h4>Safe Packaging</h4>
+                        <p>Custom eco-friendly packaging ensures your plants arrive safe and undamaged.</p>
+                    </div>
+                </div>
+                <div class="d-none d-md-block col-md-auto">
+                    <div class="why-divider"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="why-card">
+                        <div class="why-icon">🚀</div>
+                        <h4>Fast Delivery</h4>
+                        <p>Same-day delivery in select cities. 2–4 days PAN India with live tracking.</p>
+                    </div>
+                </div>
+                <div class="d-none d-md-block col-md-auto">
+                    <div class="why-divider"></div>
+                </div>
+                <div class="col-md-2">
+                    <div class="why-card">
+                        <div class="why-icon">💚</div>
+                        <h4>Plant Guarantee</h4>
+                        <p>30-day plant health guarantee. We replace any plant that arrives unhealthy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     PLANT CARE TIPS
+══════════════════════════════════════════════════════════════ -->
+    <section id="care" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <div class="section-label">Green Wisdom</div>
+                <h2 class="section-title">Plant Care Tips</h2>
+                <p class="section-sub mx-auto">Simple, actionable advice to help your plants thrive long after delivery.
+                </p>
+            </div>
+            <div class="tips-grid reveal">
+                <div class="tip-card">
+                    <div class="tip-icon">💧</div>
+                    <h4>Watering Wisely</h4>
+                    <p>Most houseplants prefer to dry out slightly between waterings. Stick your finger 2cm into the
+                        soil — if it's dry, it's time to water. Overwatering is the #1 killer of indoor plants.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">☀️</div>
+                    <h4>Light Requirements</h4>
+                    <p>Bright indirect light suits most indoor plants. Avoid harsh afternoon sun on tender leaves.
+                        North-facing windows are ideal for ferns and peace lilies. Succulents love direct sun.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🌍</div>
+                    <h4>Right Soil Mix</h4>
+                    <p>Use well-draining potting mix for most plants. Add perlite (20%) to improve aeration. Succulents
+                        and cacti need sandy, gritty soil. Orchids thrive in bark-based media.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🌡️</div>
+                    <h4>Temperature & Humidity</h4>
+                    <p>Most tropical houseplants love 18–28°C and moderate humidity. Mist leaves weekly, or place a
+                        pebble tray with water below the pot to increase humidity naturally.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🪴</div>
+                    <h4>When to Repot</h4>
+                    <p>Repot when roots start growing out of drainage holes or the plant looks too big for its pot.
+                        Spring is the best time. Choose a pot only 2–3 cm larger than the current one.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🌿</div>
+                    <h4>Fertilising</h4>
+                    <p>Feed plants during the growing season (March–September) with a balanced liquid fertiliser every
+                        2–3 weeks. Stop fertilising in winter when plant growth naturally slows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════════════════════ -->
+    <section id="testimonials" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <div class="section-label">Happy Customers</div>
+                <h2 class="section-title">What Plant Parents Say</h2>
+            </div>
+            <div class="row g-4 reveal">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"The Monstera I ordered arrived beautifully packaged with a personal
+                            care card. It's been three months and it's absolutely thriving. Flora Fusion has become my
+                            go-to!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">🧕</div>
+                            <div>
+                                <div class="author-name">Priya Sharma</div>
+                                <div class="author-loc">Mumbai, Maharashtra</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Ordered 4 succulents for my office desk. They came in adorable pots
+                            with a care guide. Colleagues keep asking where I got them. 10/10 would recommend!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨</div>
+                            <div>
+                                <div class="author-name">Arjun Mehta</div>
+                                <div class="author-loc">Bangalore, Karnataka</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★☆</div>
+                        <p class="testimonial-text">"Love the website — so easy to browse and the plant information is
+                            really helpful. My peace lily arrived healthy and even had a small bloom. Great experience
+                            overall!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩</div>
+                            <div>
+                                <div class="author-name">Sneha Gupta</div>
+                                <div class="author-loc">Delhi, NCR</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     ORDER / CONTACT FORM
+══════════════════════════════════════════════════════════════ -->
+    <section id="order" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <div class="section-label">Get in Touch</div>
+                <h2 class="section-title">Place an Order / Contact Us</h2>
+                <p class="section-sub mx-auto">Fill in your details and we'll get back to you within 24 hours with order
+                    confirmation.</p>
+            </div>
+
+            <div class="form-wrapper reveal">
+                <!-- Order form -->
+                <form id="orderForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="fname">Full Name</label>
+                            <input type="text" id="fname" class="form-control-ff" placeholder="e.g. Priya Sharma" />
+                            <div class="form-error" id="fnameErr">Please enter your full name.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="femail">Email Address</label>
+                            <input type="email" id="femail" class="form-control-ff" placeholder="you@example.com" />
+                            <div class="form-error" id="femailErr">Please enter a valid email.</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="fphone">Phone Number</label>
+                            <input type="tel" id="fphone" class="form-control-ff" placeholder="10-digit mobile number"
+                                maxlength="10" />
+                            <div class="form-error" id="fphoneErr">Enter a valid 10-digit phone number.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="fcity">City</label>
+                            <input type="text" id="fcity" class="form-control-ff" placeholder="e.g. Mumbai" />
+                            <div class="form-error" id="fcityErr">Please enter your city.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="faddress">Delivery Address</label>
+                        <textarea id="faddress" class="form-control-ff" rows="3"
+                            placeholder="House/Flat No., Street, Area, Pincode"></textarea>
+                        <div class="form-error" id="faddressErr">Please enter your delivery address.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fmessage">Message / Special Instructions</label>
+                        <textarea id="fmessage" class="form-control-ff" rows="2"
+                            placeholder="Any notes for us? (optional)"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="bi bi-send-fill"></i> Submit Order Request
+                    </button>
+                </form>
+
+                <!-- Success message (shown after submit) -->
+                <div class="success-msg" id="successMsg">
+                    <div class="success-icon">🌿</div>
+                    <h3>Order Received!</h3>
+                    <p>Thank you! We've received your order request. Our team will contact you within 24 hours to
+                        confirm details and delivery slot.</p>
+                    <button onclick="resetForm()" style="margin-top:20px;" class="btn-primary-ff">
+                        <i class="bi bi-arrow-left"></i> Place Another Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid p-0">
+        <h2 class="text-center mb-4">Our Location</h2>
+
+        <div class="map-container">
+            <!-- <iframe
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d112213.45501909428!2d77.44511016573826!3d28.489469093655295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sdelhi%20ncr%20nursery!5e0!3m2!1sen!2sin!4v1777109042735!5m2!1sen!2sin"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28056.014961851106!2d77.49559599920394!3d28.47949032362849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sindia%20nursery%20!5e0!3m2!1sen!2sin!4v1777109148525!5m2!1sen!2sin"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+    <!-- ══════════════════════════════════════════════════════════════
+     NEWSLETTER
+══════════════════════════════════════════════════════════════ -->
+    <section id="newsletter">
+        <div class="container">
+            <div class="newsletter-inner">
+                <div class="newsletter-text">
+                    <h3>Stay Green, Stay Updated 🌿</h3>
+                    <p>Subscribe for plant care tips, seasonal offers, and exclusive plant drops.</p>
+                </div>
+                <div class="newsletter-form">
+                    <input type="email" id="nlEmail" class="newsletter-input" placeholder="Enter your email…" />
+                    <button class="btn-nl" onclick="subscribeNewsletter()">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <!-- Brand -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-logo">Flora <span>Fusion</span></div>
+                    <p class="footer-desc">Bringing the beauty of nature to every home across India. Premium plants,
+                        expert care, and a greener tomorrow.</p>
+                    <div class="footer-social">
+                        <div class="social-icon"><i class="bi bi-instagram"></i></div>
+                        <div class="social-icon"><i class="bi bi-facebook"></i></div>
+                        <div class="social-icon"><i class="bi bi-twitter-x"></i></div>
+                        <div class="social-icon"><i class="bi bi-youtube"></i></div>
+                        <div class="social-icon"><i class="bi bi-pinterest"></i></div>
+                    </div>
+                </div>
+
+                <!-- Quick links -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <div class="footer-heading">Quick Links</div>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#products">Shop</a></li>
+                        <li><a href="#care">Plant Care</a></li>
+                        <li><a href="#order">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <div class="footer-heading">Categories</div>
+                    <ul class="footer-links">
+                        <li><a href="#products">Indoor Plants</a></li>
+                        <li><a href="#products">Outdoor Plants</a></li>
+                        <li><a href="#products">Succulents</a></li>
+                        <li><a href="#products">Decorative</a></li>
+                        <li><a href="#products">Gift Plants</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-heading">Contact Us</div>
+                    <div class="footer-contact-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Shop No. 42, Green Market, MG Road, Meerut – 250001, Uttar Pradesh</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="bi bi-telephone-fill"></i>
+                        <span>+91 98765 43210</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="bi bi-envelope-fill"></i>
+                        <span>hello@florafusion.in</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="bi bi-clock-fill"></i>
+                        <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer bottom -->
+            <div class="footer-bottom">
+                <p>© 2025 Flora Fusion. All rights reserved. | MCA Major Project</p>
+                <p>Made with 💚 for Plant Lovers across India</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════════════════════════
+     CART SIDEBAR
+══════════════════════════════════════════════════════════════ -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 Your Cart</h3>
+            <button class="cart-close" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- JS-rendered -->
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0</span>
+            </div>
+            <div class="cart-subtotal">
+                <span>Delivery</span>
+                <span id="cartDelivery">₹0</span>
+            </div>
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="handleCheckout()">
+                <i class="bi bi-bag-check-fill"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scroll to top -->
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
