@@ -154,7 +154,11 @@ const products = [
 let cart = JSON.parse(localStorage.getItem("floraCart")) || [];
 let activeFilter = "all";
 let searchQuery = "";
+let wishlist = JSON.parse(localStorage.getItem("floraWishlist")) || [];
 
+function saveWishlist() {
+  localStorage.setItem("floraWishlist", JSON.stringify(wishlist));
+}
 /* ── Save cart to LocalStorage ── */
 function saveCart() {
   localStorage.setItem("floraCart", JSON.stringify(cart));
@@ -187,13 +191,14 @@ function renderProducts() {
   grid.innerHTML = filtered
     .map((p) => {
       const inCart = cart.find((c) => c.id === p.id);
+      const inWishlist = wishlist.find((w) => w.id === p.id);
       return `
       <div class="product-card reveal" data-id="${p.id}">
         <div class="product-img-wrap">
           ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badgeText}</span>` : ""}
-          <button class="wishlist-btn" onclick="toggleWishlist(this)" aria-label="Add to wishlist">
-            <i class="bi bi-heart"></i>
-          </button>
+          <button class="wishlist-btn" onclick="toggleWishlist(this, ${p.id})">
+  <i class="bi ${inWishlist ? "bi-heart-fill" : "bi-heart"}"></i>
+</button>
           <div class="product-emoji">${p.emoji}</div>
         </div>
         <div class="product-body">
@@ -389,13 +394,30 @@ function handleCheckout() {
 /* ══════════════════════════════════════════════════════════════
            WISHLIST TOGGLE
         ══════════════════════════════════════════════════════════════ */
-function toggleWishlist(btn) {
-  btn.classList.toggle("active");
-  const isActive = btn.classList.contains("active");
-  btn.innerHTML = isActive
-    ? '<i class="bi bi-heart-fill"></i>'
-    : '<i class="bi bi-heart"></i>';
-  if (isActive) showToast("❤️ Added to wishlist!");
+function toggleWishlist(btn, productId) {
+  const product = products.find((p) => p.id === productId);
+  const exists = wishlist.find((w) => w.id === productId);
+
+  const icon = btn.querySelector("i");
+
+  if (exists) {
+    wishlist = wishlist.filter((w) => w.id !== productId);
+
+    icon.classList.remove("bi-heart-fill");
+    icon.classList.add("bi-heart");
+
+    showToast("❌ Removed from wishlist");
+  } else {
+    wishlist.push(product);
+
+    icon.classList.remove("bi-heart");
+    icon.classList.add("bi-heart-fill");
+
+    showToast("❤️ Added to wishlist");
+  }
+
+  saveWishlist();
+  updateWishlistBadge();
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -553,5 +575,113 @@ function initReveal() {
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   updateCartBadge();
+  updateWishlistBadge(); // 👈 YE ADD KARO
   initReveal();
 });
+// 👉 YAHAN SE TUMHARE WISHLIST FUNCTIONS START HONGE
+
+function updateWishlistBadge() {
+  document.getElementById("wishlistBadge").textContent = wishlist.length;
+}
+
+function openWishlist() {
+  renderWishlist();
+  document.getElementById("wishlistSidebar").classList.add("open");
+  document.getElementById("wishlistOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeWishlist() {
+  document.getElementById("wishlistSidebar").classList.remove("open");
+  document.getElementById("wishlistOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function renderWishlist() {
+  const container = document.getElementById("wishlistItems");
+
+  if (wishlist.length === 0) {
+    container.innerHTML = `
+      <div class="cart-empty">
+        <div class="empty-icon">💔</div>
+        <p>Your wishlist is empty.<br/>Start saving your favorite plants!</p>
+        <button onclick="closeWishlist()" class="btn-primary-ff" style="margin-top:16px;font-size:.85rem;padding:10px 22px;">
+          Explore Plants
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = wishlist
+    .map(
+      (item) => `
+      <div class="wishlist-item">
+        <div class="wishlist-item-img">${item.emoji}</div>
+
+        <div class="wishlist-item-info">
+          <div class="wishlist-item-name">${item.name}</div>
+          <div class="wishlist-item-price">₹${item.price}</div>
+
+          <div class="wishlist-actions">
+            <button class="move-cart-btn" onclick="moveToCart(${item.id})">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+
+            <button class="remove-btn" onclick="removeFromWishlist(${item.id})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `,
+    )
+    .join("");
+}
+
+function removeFromWishlist(id) {
+  wishlist = wishlist.filter((item) => item.id !== id);
+
+  saveWishlist();
+  updateWishlistBadge();
+  renderWishlist();
+  renderProducts(); // 👈 IMPORTANT (heart sync)
+}
+function moveToCart(id) {
+  addToCart(id); // cart me add karega
+  removeFromWishlist(id); // wishlist se remove karega
+}
+function handleSearch() {
+  searchQuery = document.getElementById("searchInput").value.toLowerCase();
+  const box = document.getElementById("suggestionsBox");
+
+  if (searchQuery === "") {
+    box.style.display = "none";
+    renderProducts();
+    return;
+  }
+
+  const matches = products.filter((p) =>
+    p.name.toLowerCase().includes(searchQuery),
+  );
+
+  box.innerHTML = matches
+    .slice(0, 5)
+    .map((p) => `<li onclick="selectSuggestion('${p.name}')">${p.name}</li>`)
+    .join("");
+
+  box.style.display = "block";
+
+  renderProducts();
+}
+
+// function selectSuggestion(name) {
+//   document.getElementById("searchInput").value = name;
+//   document.getElementById("suggestionsBox").style.display = "none";
+//   searchQuery = name;
+//   renderProducts();
+
+//   document.getElementById("products").scrollIntoView({
+//     behavior: "smooth",
+//   });
+// }
