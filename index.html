@@ -16,7 +16,6 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
-
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      BODY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -55,6 +54,11 @@
                     <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
                         <i class="bi bi-bag"></i>
                         <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    <!-- Wishlist Button -->
+                    <button class="wishlist-nav-btn" onclick="openWishlist()">
+                        <i class="bi bi-heart"></i>
+                        <span id="wishlistBadge" class="wishlist-badge">0</span>
                     </button>
                     <!-- Mobile hamburger -->
                     <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
@@ -313,7 +317,7 @@
     <!-- ══════════════════════════════════════════════════════════════
      TESTIMONIALS
 ══════════════════════════════════════════════════════════════ -->
-    <section id="testimonials" class="section-pad">
+    <!-- <section id="testimonials" class="section-pad">
         <div class="container">
             <div class="text-center mb-5 reveal">
                 <div class="section-label">Happy Customers</div>
@@ -366,7 +370,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- ══════════════════════════════════════════════════════════════
      ORDER / CONTACT FORM
@@ -483,9 +487,9 @@
                     <div class="footer-social">
                         <div class="social-icon"><i class="bi bi-instagram"></i></div>
                         <div class="social-icon"><i class="bi bi-facebook"></i></div>
-                        <div class="social-icon"><i class="bi bi-twitter-x"></i></div>
+                        <!-- <div class="social-icon"><i class="bi bi-twitter-x"></i></div>
                         <div class="social-icon"><i class="bi bi-youtube"></i></div>
-                        <div class="social-icon"><i class="bi bi-pinterest"></i></div>
+                        <div class="social-icon"><i class="bi bi-pinterest"></i></div> -->
                     </div>
                 </div>
 
@@ -516,10 +520,10 @@
                 <!-- Contact -->
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-heading">Contact Us</div>
-                    <div class="footer-contact-item">
+                    <!-- <div class="footer-contact-item">
                         <i class="bi bi-geo-alt-fill"></i>
                         <span>Shop No. 42, Green Market, MG Road, Meerut – 250001, Uttar Pradesh</span>
-                    </div>
+                    </div> -->
                     <div class="footer-contact-item">
                         <i class="bi bi-telephone-fill"></i>
                         <span>+91 98765 43210</span>
@@ -537,7 +541,7 @@
 
             <!-- Footer bottom -->
             <div class="footer-bottom">
-                <p>© 2025 Flora Fusion. All rights reserved. | MCA Major Project</p>
+                <p>© 2026 Flora Fusion. All rights reserved.</p>
                 <p>Made with 💚 for Plant Lovers across India</p>
             </div>
         </div>
@@ -573,7 +577,20 @@
             </button>
         </div>
     </div>
+    <!-- Wishlist Overlay -->
+    <div id="wishlistOverlay" class="wishlist-overlay" onclick="closeWishlist()"></div>
 
+    <!-- Wishlist Sidebar -->
+    <div id="wishlistSidebar" class="wishlist-sidebar">
+
+        <div class="cart-header">
+            <h3>My Wishlist ❤️</h3>
+            <button onclick="closeWishlist()" class="cart-close">X</button>
+        </div>
+
+        <div id="wishlistItems" class="cart-items"></div>
+
+    </div>
     <!-- Toast container -->
     <div class="toast-container" id="toastContainer"></div>
 
